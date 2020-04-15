@@ -58,26 +58,25 @@ class Database:
             sql = "insert into pharmacy.pharmacy_phonebook(id, name, telno, address, lan, lng) " \
                   "values (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (data_id, name, telno, address, lan, lng)
             self.cur.execute(sql)
+            self.db.commit()
+            return "Success!!"
         except KeyError:
             return "Insert Error, Type Invalid Value!"
         except self.db.Error as error:
             return "Insert Error : {0}", error
-        finally:
-            self.db.commit()
-            return "Success!!"
 
     def delete_data(self, index):
         logging.info("Loaded Func %s ", sys._getframe().f_code.co_name)
         try:
             sql = "delete from pharmacy.pharmacy_phonebook where id=" + index + ";"
             self.cur.execute(sql)
+            self.db.commit()
+            return "Success!!"
         except self.db.Error as error:
             return "Delete Error : {0}", error
         except BaseException:
             return "Error Occurred!!"
-        finally:
-            self.db.commit()
-            return "Success!!"
+
 
     def close_database(self):
         logging.info("Loaded Func %s ", sys._getframe().f_code.co_name)
