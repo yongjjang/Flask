@@ -66,12 +66,12 @@ def init_tables():
 
 
 if __name__ == "__main__":
-    asd = get_tables()
-    print(type(asd[0]))
-    print(len(asd))
+    test = get_tables()
+    print(type(test[0]))
+    print(len(test))
 
 # if __name__ == "__main__":
 #     insert_data()
-# items = get_item('stores', get_json_data(make_url(35.2, 129.1, 500)))
-# for item in items:
-#     print(item)
+#     items = get_item('stores', get_json_data(make_url(35.2, 129.1, 500)))
+#     for item in items:
+#       print(item)
