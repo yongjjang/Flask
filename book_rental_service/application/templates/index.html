@@ -2,100 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>공적 마스크 현황</title>
+    <title>도서 대출 관리 서비스</title>
 
 </head>
 <body>
 
-    <h2>약국 이름으로 위도경도 검색하기!!</h2>
-    <a href="http://localhost:8080/phonebook">약국 전화번호부로 바로가기!</a><br>
-    <br>
-    
-    <h2>원하는 위도 및 경도로 탐색하기!!</h2>
+    <h2>도서 목록 조회</h2>
     <form action="/" method="post">
-        위도 : <input name="lat" type="text" />
-        경도 : <input name="lng" type="text" />
-        <input value="Login" type="submit" />
+        도서 제목 : <input name="book_name" type="text" />
     </form>
 
-    
-    <h2>지도에서 약국 바로 찾기!!</h2>
-    <div id="map" style="width:100%;height:700px;"></div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8669d37cb31015430b6b915c64ec0642"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(35.145501, 129.036820), // 지도의 중심좌표
-        level: 5 // 지도의 확대 레벨
-    };
-
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-
-
-
-function create_marker() {
-    var positions = [
-
-        {% for item in items %}
-        {
-            content: '<div> 약국 이름 : {{ item['name'] }}<br>마스크 도착 시간 : {{ item['stock_at'] }}<br>남은 수량 : ' +
-            '{% if item['remain_stat'] == 'plenty'%}100개 이상{% endif %}{% if item['remain_stat'] == 'some'%}30개 이상 100개 미만{% endif %}{% if item['remain_stat'] == 'few'%}2개 이상 30개 미만{% endif %}{% if item['remain_stat'] == 'empty'%}1개 이하{% endif %}{% if item['remain_stat'] == 'break'%}판매 중지{% endif %}'
-
-            + '<br>주소지 : {{ item['addr'] }} </div>',
-
-            latlng: new kakao.maps.LatLng({{ item['lat'] }}, {{ item['lng'] }})
-        },
-        {%  endfor %}
-        {
-            content: '<div>근린공원</div>',
-            latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-        }
-    ];
-
-
-
-    for (var i = 0; i < positions.length; i++) {
-        var marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positions[i].latlng // 마커의 위치
-        });
-
-        var infowindow = new kakao.maps.InfoWindow({
-            content: positions[i].content // 인포윈도우에 표시할 내용
-        });
-
-        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-    }
-}
-
-create_marker();
-
-
-function makeOverListener(map, marker, infowindow) {
-    return function() {
-        infowindow.open(map, marker);
-    };
-}
-
-function makeOutListener(infowindow) {
-    return function() {
-        infowindow.close();
-    };
-}
-
-
-kakao.maps.event.addListener(map, 'dragend', function() {
-    {#create_marker();#}
-
-
-    var form = document.createElement('form');
-
-
-});
-
-</script>
 </body>
 </html>
