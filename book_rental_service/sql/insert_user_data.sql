@@ -1,3 +1,4 @@
+use bookrentalservice;
 INSERT INTO user (id,name,birthday,gender,email,telno,picturepath) VALUES (6,"Mcmillan, India N.","1974-12-23","M","elit@facilisislorem.co.uk","046-789-9206","Ap #661-7658 Arcu Street");
 INSERT INTO user (id,name,birthday,gender,email,telno,picturepath) VALUES (34,"Porter, Nero M.","1984-05-24","M","nostra.per@atlacus.co.uk","000-655-0409","9286 Aliquam Road");
 INSERT INTO user (id,name,birthday,gender,email,telno,picturepath) VALUES (98,"Petersen, Kylie J.","1990-08-07","M","sollicitudin@Pellentesqueutipsum.co.uk","052-173-7502","P.O. Box 955, 838 Egestas. St.");
