@@ -18,7 +18,7 @@ def get_tables(db_table):
     queries = db_session.query(db_table)
 
     for q in queries:
-        s = str(q).split(',')
+        s = str(q).split('/')
         entries.append(s)
 
     return entries

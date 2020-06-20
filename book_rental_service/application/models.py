@@ -54,7 +54,7 @@ class User(base):
         return 7
 
     def __str__(self):
-        return "%d,%s,%s,%s,%s,%s,%s" % \
+        return "%d/%s/%s/%s/%s/%s/%s" % \
                (self.id, self.name, self.birthday, self.gender, self.email
                 , self.telno, self.picturepath)
 

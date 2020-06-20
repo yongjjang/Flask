@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, current_app, render_template
 from book_rental_service.application.process_data import *
-import book_rental_service.application.models
+import book_rental_service.application.models as models
 import logging
 
 
@@ -23,6 +23,6 @@ def search():
 
     if request.method == 'POST':
         name = request.form.get('name')
-        return render_template('search_table.html', items=item)
+        return render_template('book_search.html', items=item)
 
-    return render_template('search_table.html', items=item, length_item=item_size, table_head=user.column_list)
+    return render_template('book_search.html', items=item, length_item=item_size, table_head=user.column_list)
