@@ -4,16 +4,21 @@ from book_rental_service.application.database import base, db_session
 
 class Book(base):
     __tablename__ = 'book'
-    isbn = Column(String(40), primary_key=True)
+    __table_args__ = {'extend_existing': True}
+
+    id = Column(Integer, primary_key=True)
+    isbn = Column(String(40))
     name = Column(String(40))
     author = Column(String(40))
     price = Column(String(10))
     description = Column(String(40))
     link = Column(String(100))
     picturepath = Column(String(60))
-    canrental = Column(Boolean(), default=True)
+    isrentedout = Column(Boolean(), default=True)
+    column_list = ['ID', 'ISBN', 'Name', 'Author', 'Price', 'Description', 'link', 'Picture', 'Is Rent Out?']
 
-    def __init__(self, isbn, name, author, price, description, link, picture_path, canresntal):
+    def __init__(self, id, isbn, name, author, price, description, link, picture_path, isrentedout):
+        self.id = id
         self.isbn = isbn
         self.name = name
         self.author = author
@@ -21,16 +26,19 @@ class Book(base):
         self.description = description
         self.link = link
         self.picturepath = picture_path
-        self.canrental = can_resntal
+        self.isrentedout = isrentedout
 
     def __repr__(self):
-        return "<Book('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'>" % \
-               (self.isbn, self.name, self.author, self.price
-                , self.description, self.link, self.picturepath, self.canrental)
+        return "%d|%s|%s|%s|%s|%s|%s|%s|%s" % \
+               (self.id, self.isbn, self.name, self.author, self.price
+                , self.description, self.link, self.picturepath, self.isrentedout)
+
 
 
 class User(base):
     __tablename__ = 'user'
+    __table_args__ = {'extend_existing': True}
+
     id = Column(Integer, primary_key=True)
     name = Column(String(40))
     birthday = Column(Date)
@@ -38,10 +46,11 @@ class User(base):
     email = Column(String(20))
     telno = Column(String(14))
     picturepath = Column(String(100))
-    query = db_session.query_property()
-    column_list = ['ID', 'Name', 'Birthday', 'Gender', 'E-Mail', 'Tel', 'Picture']
+    canrent = Column(Boolean(), default=True)
+    # query = db_session.query_property()
+    column_list = ['ID', 'Name', 'Birthday', 'Gender', 'E-Mail', 'Tel', 'Picture', 'CanRent']
 
-    def __init__(self, id, name, birthday, gender, email, telno, picturepath):
+    def __init__(self, id, name, birthday, gender, email, telno, picturepath, canrent):
         self.id = id
         self.name = name
         self.birthday = birthday
@@ -49,36 +58,35 @@ class User(base):
         self.email = email
         self.telno = telno
         self.picturepath = picturepath
-
-    def __len__(self):
-        return 7
+        self.canrent = canrent
 
     def __str__(self):
-        return "%d/%s/%s/%s/%s/%s/%s" % \
+        return "%d|%s|%s|%s|%s|%s|%s|%s" % \
                (self.id, self.name, self.birthday, self.gender, self.email
-                , self.telno, self.picturepath)
+                , self.telno, self.picturepath, self.canrent)
 
 
 class BookRental(base):
     __tablename__ = 'bookrental'
+    __table_args__ = {'extend_existing': True}
+
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer)
+    userid = Column(Integer)
     isbn = Column(String(40))
-    rental_date = Column(Date)
-    return_date = Column(Date)
-    isrental = Column(Boolean(), default=False)
+    rentaldate = Column(Date)
+    returndate = Column(Date)
+    isrentout = Column(Boolean(), default=False)
+    column_list = ['ID', 'User ID', 'ISBN', 'Rental Date', 'Return Date', 'Is Rent Out?']
 
-    def __init__(self, id, user_id, isbn, rental_date, return_date, isrental):
+    def __init__(self, id, userid, isbn, rentaldate, returndate, isrentout):
         self.id = id
-        self.user_id = user_id
-        self.user_name = user_name
-        self.user_birthday = user_birthday
+        self.userid = userid
         self.isbn = isbn
-        self.rental_date = rental_date
-        self.return_date = return_date
-        self.isrental = isrental
+        self.rentaldate = rentaldate
+        self.returndate = returndate
+        self.isrentout = isrentout
 
-    def __repr__(self):
-        return "<BookRental('%d', '%d', '%s', '%s', '%s', '%s'>" % \
-               (self.id, self.user_id, self.isbn, self.rental_date
-                , self.return_date, self.isrental)
+    def __str__(self):
+        return "%d|%d|%s|%s|%s|%s" % \
+               (self.id, self.userid, self.isbn, self.rentaldate
+                , self.returndate, self.isrentout)

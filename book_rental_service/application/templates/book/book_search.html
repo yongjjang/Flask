@@ -2,17 +2,16 @@
 
 
 {% block header %}
-    <h1>{% block title %}사용자 목록 조회{% endblock %}</h1>
+    {% block title %}도서 목록 조회{% endblock %}
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="form-row justify-content-md-center">
-            <form class="form-inline align-self-center" action="/search/" method="post">
+            <form class="form-inline align-self-center" action="/book/info" method="post">
                 <div class=" form-group ">
-                    <label>Book Name</label>
-                    <input class="form-control col-auto" name="book_name" type="search" aria-label="Search"
-                           placeholder="Enter your query"/>
+                    <label>Book's ISBN</label>
+                    <input class="form-control col-auto" name="isbn" type="text" placeholder="Enter Book's ISBN" required />
                     <input class="btn btn-primary mb-2" type="submit" value="Submit">
                 </div>
             </form>

@@ -2,15 +2,21 @@
 
 
 {% block header %}
-  <h1>{% block title %}사용자 조회{% endblock %}</h1>
+    {% block title %}사용자 조회{% endblock %}
 {% endblock %}
 
 {% block content %}
+    {%  if is_valid %}
+        <h2> </h2>
+        <h2>찾고 계신 사용자가 존재하지 않습니다.</h2>
+        <a href="/">돌아가기</a>
+    {% else %}
 
     <div class="container">
         <div class="row justify-content-md-center align-items-center">
             <div class="col-md-4">
-                <img src="../image/testImage.jpg" class="img-thumbnail" alt="response image"/>
+                {#                <img src="{{ entry[6] }}" class="img-thumbnail" alt="response images"/>#}
+                <img alt="response image" class="img-thumbnail" src="static/images/testImage.jpg"/>
             </div>
             <div class="col-md-4 align-items-center">
                 <div class="row justify-content-md-center">
@@ -21,7 +27,7 @@
                             <th class="text-center">Name</th>
                             </thead>
                             <tbody>
-                            <td class="text-center">장보고</td>
+                            <td class="text-center">{{ entry[1] }}</td>
                             </tbody>
                         </table>
                     </div>
@@ -31,7 +37,7 @@
                             <th class="text-center">Gender</th>
                             </thead>
                             <tbody>
-                            <td class="text-center">M</td>
+                            <td class="text-center">{{ entry[3] }}</td>
                             </tbody>
                         </table>
                     </div>
@@ -43,7 +49,7 @@
                         <th class="text-center">Tel</th>
                         </thead>
                         <tbody>
-                        <td class="text-center">010-1234-5678</td>
+                        <td class="text-center">{{ entry[5] }}</td>
                         </tbody>
                     </table>
                 </div>
@@ -58,7 +64,7 @@
                     <th class="text-center">E-Mail</th>
                     </thead>
                     <tbody>
-                    <td class="text-center">gilsanjjang@gmail.com</td>
+                    <td class="text-center">{{ entry[4] }}</td>
                     </tbody>
                 </table>
             </div>
@@ -68,12 +74,21 @@
                     <th class="text-center">Birthday</th>
                     </thead>
                     <tbody>
-                    <td class="text-center">1821-03-27</td>
+                    <td class="text-center">{{ entry[2] }}</td>
                     </tbody>
                 </table>
             </div>
         </div>
-        <a href="#" class="btn btn-danger btn-sm active float-sm-right" role="button" aria-pressed="true">Delete User!</a>
+        <div class="row justify-content-md-center align-items-center">
+            <div class="col-md-6 align-items-center text-center text-primary">
+                {{ entry[7] }} 사용자 책 대여 가능 여부 표시
+            </div>
+            <div class="col-md-2 align-items-center">
+                <a href="#" class="btn btn-danger btn-sm active float-sm-right" role="button" aria-pressed="true">Delete
+                    User!</a>
+            </div>
+        </div>
     </div>
 
+    {% endif %}
 {% endblock %}

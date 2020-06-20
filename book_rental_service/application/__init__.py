@@ -1,28 +1,26 @@
 from flask import Flask, request, jsonify, current_app, render_template
-from book_rental_service.application.process_data import *
-import book_rental_service.application.models as models
+from .process_data import *
+from .models import *
+from .user import user
+from .book import book
+from .rent import rent
 import logging
 
 
-logging.basicConfig()
+logging.basicConfig(level=logging.INFO)
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(user)
+    app.register_blueprint(book)
+    app.register_blueprint(rent)
+    return app
+
+
+app = create_app()
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-@app.route('/search/', methods=['POST'])
-@app.route('/search/')
-def search():
-    user = models.User
-    item = get_tables(user)
-    item_size = len(item[0])
-
-    if request.method == 'POST':
-        name = request.form.get('name')
-        return render_template('book_search.html', items=item)
-
-    return render_template('book_search.html', items=item, length_item=item_size, table_head=user.column_list)

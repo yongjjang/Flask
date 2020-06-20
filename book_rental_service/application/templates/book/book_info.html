@@ -6,10 +6,17 @@
 {% endblock %}
 
 {% block content %}
+    {%  if is_valid %}
+        <h2> </h2>
+        <h2>찾고 계신 도서가 존재하지 않습니다.</h2>
+        <a href="/">돌아가기</a>
+    {% else %}
+
     <div class="container">
         <div class="row justify-content-md-center align-items-center">
             <div class="col-md-4">
-                <img src="../image/testImage.jpg" class="img-thumbnail" alt="response image"/>
+                <img alt="response image" class="img-thumbnail" src="static/images/testImage.jpg"/>
+{#                <img src="{{ entry[7] }}" class="img-thumbnail" alt="response images"/>#}
             </div>
             <div class="col-md-4 align-items-center">
                 <div class="col-md-12 align-items-center">
@@ -18,7 +25,7 @@
                         <th class="text-center">Name</th>
                         </thead>
                         <tbody>
-                        <td class="text-center">대머리 독수리</td>
+                        <td class="text-center">{{ entry[2] }}</td>
                         </tbody>
                     </table>
                 </div>
@@ -28,7 +35,7 @@
                         <th class="text-center">Author</th>
                         </thead>
                         <tbody>
-                        <td class="text-center">대머리 독수리의 모험</td>
+                        <td class="text-center">{{ entry[3] }}</td>
                         </tbody>
                     </table>
                 </div>
@@ -43,7 +50,7 @@
                     <th class="text-center">ISBN</th>
                     </thead>
                     <tbody>
-                    <td class="text-center">Hello Wo</td>
+                    <td class="text-center">{{ entry[1] }}</td>
                     </tbody>
                 </table>
             </div>
@@ -53,7 +60,7 @@
                     <th class="text-center">Price</th>
                     </thead>
                     <tbody>
-                    <td class="text-center">19,000</td>
+                    <td class="text-center">{{ entry[4] }}</td>
                     </tbody>
                 </table>
             </div>
@@ -65,12 +72,19 @@
                     <th class="text-center">Description</th>
                     </thead>
                     <tbody>
-                    <td class="text-center">대머리 독수리가 울부지저따</td>
+                    <td class="text-center">{{ entry[6] }}</td>
                     </tbody>
                 </table>
             </div>
         </div>
-        <a href="#" class="btn btn-danger btn-sm active float-lg-right" role="button" aria-pressed="true">Delete Book!</a>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 align-items-center text-center text-primary">
+                {{ entry[8] }} 책 대여 중 여부 표시
+            </div>
+            <div class="col-md-2 align-items-center">
+                <a href="#" class="btn btn-danger btn-sm active float-lg-right" role="button" aria-pressed="true">Delete Book!</a>
+            </div>
+        </div>
     </div>
-
+    {% endif %}
 {% endblock %}
