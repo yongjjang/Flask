@@ -118,6 +118,10 @@ def get_rent_date():
     return str(rental_date), str(return_date)
 
 
+def parse_row(row):
+    return str(row).split('|')
+
+
 if __name__ == "__main__":
     print("hi")
     # user = User(101, 'yong', '1995-10-06', 'M', 'yongjjang@walking_potato', '010-1234-1231', 'static/images/testImage', True)

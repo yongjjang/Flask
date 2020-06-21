@@ -26,6 +26,20 @@ def info():
         return render_template('user/user_info.html', entry=item, is_valid=is_valid)
 
 
-@user.route('/register', methods=['GET'])
+@user.route('/register', methods=['POST', 'GET'])
 def register():
-    return render_template('user/user_register.html')
+    if request.method == 'POST':
+        id = get_max_id(User) + 1
+        username = request.form['username']
+        birthday = request.form['birthday']
+        email = request.form['email']
+        gender = request.form['gender']
+        tel = request.form['tel']
+        picture = request.form['picture']
+
+        if add_entry(User(id, username, birthday, gender, email, tel, picture, True)):
+            return "Success"
+        else:
+            return "Failed"
+    else:
+        return render_template('user/user_register.html')

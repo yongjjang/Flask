@@ -8,26 +8,26 @@
 {% block content %}
 
 <div class="container" id="userAddForm">
-    <form>
+    <form action="{{ url_for('user.register') }}"  method="post">
         <div class="form-group col-md-6">
             <label for="inputName">Your Name</label>
-            <input type="text" class="form-control is-valid" id="inputName" name="UserName" placeholder="이름" , required>
+            <input type="text" class="form-control is-valid" id="inputName" name="username" placeholder="이름" , required>
         </div>
 
         <div class="form-group col-md-6">
             <label for="inputPassword4">Birthday</label>
-            <input type="date" class="form-control" id="inputPassword4" name="Birthday" placeholder="Password">
+            <input type="date" class="form-control" id="inputPassword4" name="birthday" placeholder="Password">
         </div>
 
 
         <div class="form-group col-md-6">
             <label for="inputEMail">E-Mail</label>
-            <input type="text" class="form-control" id="inputEMail" name="Email" placeholder="YourEmail@merong.com">
+            <input type="text" class="form-control" id="inputEMail" name="email" placeholder="YourEmail@merong.com">
         </div>
 
         <div class="form-group col-md-6">
             <label for="inputGender">Gender</label>
-            <select id="inputGender" class="custom-select" name="Gender">
+            <select id="inputGender" class="custom-select" name="gender">
                 <option value="None">N/A</option>
                 <option value="F">Female</option>
                 <option value="M">Male</option>
@@ -35,14 +35,14 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputTel">Tel</label>
-            <input type="text" class="form-control" id="inputTel" name="Tel" placeholder="010-1234-5678">
+            <input type="text" class="form-control" id="inputTel" name="tel" placeholder="010-1234-5678">
         </div>
 
 
         <div class="form-group col-md-4">
 
             <label class="custom-file-label" for="inputFile">Choose File..</label>
-            <input type="file" class="custom-file-input" id="inputFile" name="Picture">
+            <input type="file" class="custom-file-input" id="inputFile" name="picture">
         </div>
 
 
