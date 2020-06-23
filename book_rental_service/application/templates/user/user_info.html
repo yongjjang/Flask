@@ -79,16 +79,38 @@
                 </table>
             </div>
         </div>
-        <div class="row justify-content-md-center align-items-center">
+        <div class="row justify-content-md-center align-items-center" >
             <div class="col-md-6 align-items-center text-center text-primary">
-                {{ entry[7] }} 사용자 책 대여 가능 여부 표시
+                <a id="rentInfo" ></a>
             </div>
             <div class="col-md-2 align-items-center">
-                <a href="#" class="btn btn-danger btn-sm active float-sm-right" role="button" aria-pressed="true">Delete
-                    User!</a>
+                <button href="#" id="btn" class="btn btn-danger btn-sm active float-sm-right"  aria-pressed="true">Delete
+                    User!</button>
             </div>
         </div>
     </div>
+    <script>
 
+    </script>
     {% endif %}
 {% endblock %}
+
+{% block script %}
+    console.log("Hi");
+    var status = "{{ entry[7] }}";
+
+    var btn;
+    if (status == "True"){
+        btn = document.getElementById('btn');
+        document.getElementById('rentInfo').innerHTML = "책을 대여중이지 않습니다.";
+        btn.disabled = false;
+        console.log("T");
+
+    }else{
+        btn = document.getElementById('btn');
+        btn.disabled = 'disabled';
+        document.getElementById('rentInfo').innerHTML = "사용자가 책을 대여중이기 때문에 삭제할 수 없습니다.";
+        console.log("F");
+
+    }
+{% endblock%}

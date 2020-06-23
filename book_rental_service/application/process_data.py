@@ -124,6 +124,13 @@ def parse_row(row):
 
 if __name__ == "__main__":
     print("hi")
+
+    tst = search_entry(User, User.birthday, "2020%")
+    print(tst)
+
+    rst = User.query.all()
+    ra = Book.query.filter(Book.name.like("asdasdasd")).all()
+
     # user = User(101, 'yong', '1995-10-06', 'M', 'yongjjang@walking_potato', '010-1234-1231', 'static/images/testImage', True)
     # add_entry(user)
     #

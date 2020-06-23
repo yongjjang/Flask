@@ -24,7 +24,6 @@ def rental():
         username = request.form['username']
         birthday = request.form['birthday']
 
-
         isbn = search_entry(Book, Book.isbn, isbn)[1]
         userid = int(search_entry(User, User.name, username)[0])
 

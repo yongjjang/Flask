@@ -43,3 +43,20 @@ def register():
             return "Failed"
     else:
         return render_template('user/user_register.html')
+
+
+@user.route('/check', methods=['POST'])
+def valid_check():
+    data = request.get_json()
+    user_name = data['user_name']
+    birthday = data['birthday']
+
+    app.logger.debug("new name :" + user_name)
+    result = User.query.filter_by(name=user_name).filter_by(birthday=birthday).first()
+
+    if not result1 and not result2:
+        app.logger.info(id + ' 사용가능')
+        return jsonify({'existence': 'false'})
+    else:
+        app.logger.info(id + ' 사용불가')
+        return jsonify({'existence': 'true'})
