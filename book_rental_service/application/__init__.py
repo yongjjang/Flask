@@ -15,6 +15,9 @@ def create_app():
     app.register_blueprint(user)
     app.register_blueprint(book)
     app.register_blueprint(rent)
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+    app.config['LOGGING_LEVEL'] = logging.DEBUG
+    app.config['SECRET_KEY'] = 'this is secret!!'
     return app
 
 

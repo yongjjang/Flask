@@ -123,8 +123,6 @@ def parse_row(row):
 
 
 if __name__ == "__main__":
-    print("hi")
-
     tst = search_entry(User, User.birthday, "2020%")
     print(tst)
 

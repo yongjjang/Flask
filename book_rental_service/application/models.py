@@ -47,7 +47,6 @@ class User(base):
     telno = Column(String(14))
     picturepath = Column(String(100))
     canrent = Column(Boolean(), default=True)
-    # query = db_session.query_property()
     column_list = ['ID', 'Name', 'Birthday', 'Gender', 'E-Mail', 'Tel', 'Picture', 'CanRent']
 
     def __init__(self, id, name, birthday, gender, email, telno, picturepath, canrent):
