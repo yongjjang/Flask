@@ -11,15 +11,17 @@
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
         integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+
 <script>$(document).ready(function () {
     $('body').bootstrapMaterialDesign();});</script>
 
 <body style="background-image: url('../static/images/background-bg.jpg'); background-size: cover">
 
-
+{% block script %} {% endblock %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">  {% block header %}{% endblock %}</a>
@@ -31,7 +33,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Book
         </a>
@@ -40,7 +42,7 @@
           <a class="dropdown-item" href="{{ url_for('book.search') }}">Search</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           User
         </a>
@@ -49,7 +51,7 @@
           <a class="dropdown-item" href="{{ url_for('user.search') }}">Search</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Rent Service
         </a>
@@ -63,7 +65,7 @@
 </nav>
 
 
-<div class="card container-fluid col-md-10 align-center shadow" style="margin-top: 5%; margin-bottom: 5%">
+<div class="card container-fluid col-md-10 align-center" style="margin-top: 5%; margin-bottom: 5%;">
 <section class="content">
 <div style="margin-top: 5%"></div>
     {% block content %}{% endblock %}
@@ -72,8 +74,8 @@
 
 </div>
 
-<script>
-{% block script %} {% endblock %}
-</script>
+
+
+
 
 </body>

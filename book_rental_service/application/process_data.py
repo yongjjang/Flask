@@ -129,6 +129,8 @@ if __name__ == "__main__":
     rst = User.query.all()
     ra = Book.query.filter(Book.name.like("asdasdasd")).all()
 
+    if not ra:
+        print("HI")
     # user = User(101, 'yong', '1995-10-06', 'M', 'yongjjang@walking_potato', '010-1234-1231', 'static/images/testImage', True)
     # add_entry(user)
     #

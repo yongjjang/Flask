@@ -1,7 +1,7 @@
 import functools
 from .process_data import *
 from .models import *
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
 
 user = Blueprint('user', __name__, url_prefix='/user', template_folder='templates/user', static_folder='static')
 
@@ -46,17 +46,17 @@ def register():
 
 
 @user.route('/check', methods=['POST'])
-def valid_check():
+def check_valid():
     data = request.get_json()
-    user_name = data['user_name']
+    user_name = data['username']
     birthday = data['birthday']
 
-    app.logger.debug("new name :" + user_name)
+    logging.debug("new name :" + user_name)
     result = User.query.filter_by(name=user_name).filter_by(birthday=birthday).first()
 
-    if not result1 and not result2:
-        app.logger.info(id + ' 사용가능')
+    if not result:
+        logging.info(user_name + ' 사용가능')
         return jsonify({'existence': 'false'})
     else:
-        app.logger.info(id + ' 사용불가')
+        logging.info(user_name + ' 사용불가')
         return jsonify({'existence': 'true'})

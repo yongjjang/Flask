@@ -34,3 +34,27 @@ def rental():
         else:
             return "Failed"
 
+
+@rent.route('/check', methods=['POST'])
+def check_valid():
+    """
+    :TODO
+    도서 대출 시 대출이 가능한 책과 사용자인지 검증하는 기능 구현 마저 하기.
+
+    """
+    data = request.get_json()
+    isbn = data['isbn']
+    user_name = data['username']
+    birthday = data['birthday']
+
+    filtered_user = User.query.filter(user_name=user_name).filter(birthday=birthday).first()
+    filtered_book = Book.query.filter(isbn=isbn).first()
+
+    if not filtered_user or not filtered_book:
+        return jsonify({'existence': 'false'})
+    else:
+        if filtered_user.canrent and not filtered_book.isrentedout:
+            return jsonify({'existence': 'false'})
+        else:
+            logging.info(isbn + ' 사용불가')
+            return jsonify({'existence': 'true'})

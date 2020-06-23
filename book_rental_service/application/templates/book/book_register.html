@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container" id="bookAddForm">
-    <form>
+    <form method="post">
 
         <div class="form-group col-md-6">
             <label for="inputName">Book Name</label>
@@ -20,10 +20,10 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label for="inputISDF">ISDF</label>
-            <input type="text" class="form-control" id="inputISDF" name="isdf" placeholder="ISDF">
+            <label for="inputISBN">ISBN</label>
+            <input type="text" class="form-control" onclick="btnDisable()" id="inputISBN" name="isbn" placeholder="ISBN" required>
         </div>
-
+        <button type="button" id="checkUser" onclick="checkValid()" class="btn btn-outline-primary"> 중복 검사 </button>
         <div class="form-group col-md-3">
             <label for="inputPrice">Price</label>
             <input type="text" class="form-control" id="inputPrice" name="price" placeholder="15000">
@@ -45,9 +45,50 @@
             <input type="file" class="custom-file-input " id="inputFile" name="Picture">
         </div>
 
-        <button type="submit" class="btn btn-outline-primary">ADD Book!</button>
+        <button type="submit" id="registerBook" class="btn btn-outline-primary" disabled>ADD Book!</button>
     </form>
 
 </div>
 
+{% endblock %}
+
+{% block script %}
+    <script>
+    function btnDisable() {
+        document.getElementById('registerBook').disabled = true
+    }
+
+    function checkValid() {
+        let checkDuplicateBook = true;
+        let registerBook = document.getElementById('registerBook');
+        let isbn = document.getElementById('inputISBN')
+
+        if (isbn == ''){
+            alert('ISBN을 입력하세요');
+        } else {
+            const jsonData = {
+                isbn: isbn.value
+            };
+            console.log(isbn.value)
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const result = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText);
+                    if (result.existence === "false") {
+                        alert('등록 가능한 도서 정보입니다.');
+                        checkDuplicateBook = true;
+                    } else {
+                        alert('이미 등록된 도서입니다.');
+                        checkDuplicateBook = false;
+                    }
+                    registerBook.disabled = !checkDuplicateBook;
+                }
+            }
+            xhr.open('post', '{{ url_for('book.check_valid') }}', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(jsonData));
+        }
+        }
+    </script>
 {% endblock %}
