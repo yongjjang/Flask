@@ -125,3 +125,13 @@ def update():
             return render_template('/success_or_failed.html', status="Failed", description="사용자 정보 수정 실패 : " + str(ex))
     else:
         return render_template('/user/user_update.html')
+
+
+@user.route('/leaved')
+def leaved_search():
+    item = get_tables(LeavedUser)
+    item_size = len(item[0])
+
+    return render_template('user/user_search.html',
+                           items=item, length_item=item_size,
+                           table_head=LeavedUser.column_list)
