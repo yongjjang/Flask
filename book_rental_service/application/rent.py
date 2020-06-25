@@ -20,6 +20,27 @@ def rent_list():
                            items=rental_list, table_head=list_column)
 
 
+@rent.route('/return', methods=['POST'])
+def book_return():
+    id = int(request.form['id'])
+    print(id)
+    try:
+        bookrental = BookRental.query.filter(BookRental.id == id).first()
+
+        user = User.query.filter(User.id == bookrental.userid).first()
+        book = Book.query.filter(Book.id == bookrental.bookid).first()
+
+        user.canrent = True
+        book.isrentedout = False
+        BookRental.query.filter(BookRental.id == id).delete(synchronize_session=False)
+        db_session.flush()
+        db_session.commit()
+        return render_template('/success_or_failed.html', status="Success", description="대출 기록 삭제 성공!")
+    except Exception as ex:
+        logging.info(ex)
+        return render_template('/success_or_failed.html', status="Failed", description="대출 기록 삭제 실패")
+
+
 @rent.route('/rental', methods=['POST'])
 def rental():
     if request.method == 'POST':
@@ -28,26 +49,24 @@ def rental():
         username = request.form['username']
         birthday = request.form['birthday']
 
-        book = Book.query.filter_by(isbn=isbn).first()
-        user = User.query.filter_by(name=username).filter_by(birthday=birthday).first()
-        if book and user:
-            logging.info("Book is rented Out? : " + str(book.isrentedout))
-            logging.info("User can Rent? : " + str(user.canrent))
-            try:
-                if not book.isrentedout and user.canrent:
-                    rental_date, return_date = get_rent_date()
-                    user.canrent = False
-                    book.isrentedout = True
-                    add_entry(BookRental(id=id, userid=userid, bookid=bookid, rentaldate=rental_date,
-                                     returndate=return_date, isrentout=is_rent_out))
-                    db_session.commit()
-                    return render_template('/success_or_failed.html', status="Success", description="도서 대출 실행 완료!")
-            except Exception as ex:
-                Logging.info(ex)
-            finally:
-                return render_template('/success_or_failed.html', status="Failed", description="대출할  수 없는 도서 또는 사용자입니다.")
-        else:
-            return "Failed"
+        book = Book.query.filter(Book.isbn.ilike("%" + isbn + "%")).first()
+        user = User.query.filter(User.name.ilike("%" + username + "%")).filter(User.birthday == birthday).first()
+
+        try:
+            if not book.isrentedout and user.canrent:
+                rental_date, return_date = get_rent_date()
+                user.canrent = False
+                book.isrentedout = True
+                add_entry(BookRental(id=id, userid=user.id, bookid=book.id, rentaldate=rental_date,
+                                 returndate=return_date, isrentout=True))
+                db_session.flush()
+                db_session.commit()
+            return render_template('/success_or_failed.html', status="Success", description="도서 대출 실행 완료!")
+        except Exception as ex:
+            logging.info(ex)
+        finally:
+            return render_template('/success_or_failed.html', status="Failed",
+                                   description="대출할  수 없는 도서 또는 사용자입니다.")
 
 
 @rent.route('/check', methods=['POST'])

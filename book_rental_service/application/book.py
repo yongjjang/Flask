@@ -77,9 +77,9 @@ def get_json_book():
         return jsonify(result)
 
 
-@book.route('/delete', methods=['GET', 'POST'])
+@book.route('/delete', methods=['POST'])
 def delete():
-    if request.form == 'POST':
+
         isbn = request.form['isbn']
         try:
             Book.query.filter(Book.isbn == isbn).delete(synchronize_session=False)

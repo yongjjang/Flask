@@ -36,16 +36,6 @@ $('#myModal').on('shown.bs.modal', function () {
             <input type="date" class="form-control col-md-8" id="inputBD" name="birthday" placeholder="Birthday" required>
         </div>
 
-<!--        <div class="form-group col-md-6">-->
-<!--            <label for="inputISDF">ISDF</label>-->
-<!--            <input type="text" class="form-control" id="inputISDF" name="ISDF" placeholder="ISDF">-->
-<!--        </div>-->
-
-<!--        <div class="form-group col-md-3">-->
-<!--            <label for="inputTel">Tel</label>-->
-<!--            <input type="text" class="form-control" id="inputTel" name="Tel" placeholder="010-1234-5678">-->
-<!--        </div>-->
-
         <button id="rentBook" type="submit" class="btn btn-outline-primary">Rent Book!</button>
     </form>
 </div>
@@ -55,13 +45,13 @@ $('#myModal').on('shown.bs.modal', function () {
 
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Book List</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="searchBookTable" class="modal-body">
-        ...
+        입력한 ISBN와 일치하는 패턴을 가진 도서 리스트 표시할 예정
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,7 +71,7 @@ $('#myModal').on('shown.bs.modal', function () {
         </button>
       </div>
       <div id="searchUserTable" class="modal-body">
-        ...
+        입력한 이름, 생년월일과 일치하는 패턴을 가진 사용자 리스트 표시할 예정
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

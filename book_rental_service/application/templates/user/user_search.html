@@ -7,17 +7,26 @@
 
 {% block content %}
     <div class="container">
-        <div class="form-row justify-content-md-center">
-            <form class="form-inline align-self-center" action="/user/info" method="post">
-                <div class=" form-group ">
+        <div class="form-row justify-content-md-center align-items-end">
+            <div class="col"></div>
+            <form class="form-inline align-self-center col-md-8" action="{{ url_for('user.info') }}" method="post">
+                <div class=" form-group col-md-3 ">
                     <label>User Name</label>
-                    <input class="form-control col-auto" name="name" type="text"
-                           placeholder="Enter User Name" required/>
-                    <input class="btn btn-primary mb-2 " type="submit" value="Submit">
+                    <input class="form-control " name="username" type="text"
+                           placeholder="Enter User Name"/>
                 </div>
+                <div class="form-group col-md-4 offset-1 ">
+                    <label>User's Birthday</label>
+                    <input type="date" class="form-control" id="inputBirthday" name="birthday"
+                           placeholder="" required/>
+                </div>
+                <input class="btn btn-outline-primary" type="submit" value="Submit">
             </form>
+            <div class="col"></div>
         </div>
+
     </div>
+
 
     <table class="table table-bordered table-striped table-hover ">
         <tr>

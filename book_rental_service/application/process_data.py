@@ -109,7 +109,12 @@ def search_entry(db_table, condition, keyword):
 
 
 def get_max_id(db_table):
-    return int(db_session.query(func.max(db_table.id)).scalar())
+    try:
+        return int(db_session.query(func.max(db_table.id)).scalar())
+    except:
+        return 1
+
+
 
 
 def get_rent_date():

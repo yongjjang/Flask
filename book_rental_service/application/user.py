@@ -18,14 +18,16 @@ def search():
 @user.route('/info', methods=['POST'])
 def info():
     if request.method == 'POST':
-        name = request.form['name']
-        # birthday = request.form['birthday']
+        name = request.form['username']
+        birthday = request.form['birthday']
+        is_valid = False
 
-        item = User.query.filter(User.name.ilike("%" + name + "%")).first()
-        if not item:
-            is_valid = False
-        else:
+        item = User.query.filter(User.name.ilike("%" + name + "%")).\
+            filter(User.birthday == birthday).first()
+
+        if item:
             is_valid = True
+
         return render_template('user/user_info.html', entry=item, is_valid=is_valid)
 
 
@@ -40,10 +42,13 @@ def register():
         tel = request.form['tel']
         picture = request.form['picture']
 
-        if add_entry(User(id, username, birthday, gender, email, tel, picture, True)):
-            return "Success"
+        filtered_user = User.query.filter_by(name=username).filter_by(birthday=birthday).first()
+
+        if filtered_user:
+            return render_template('/success_or_failed.html', status="Failed", description="사용자 추가 실패..")
         else:
-            return "Failed"
+            add_entry(User(id, username, birthday, gender, email, tel, picture, True))
+            return render_template('/success_or_failed.html', status="Success", description="사용자 추가 성공!")
     else:
         return render_template('user/user_register.html')
 
@@ -58,10 +63,10 @@ def check_valid():
     result = User.query.filter_by(name=username).filter_by(birthday=birthday).first()
 
     if not result:
-        logging.info(user_name + ' 사용가능')
+        logging.info(username + ' : 사용자 계정 존재하지 않음')
         return jsonify({'existence': 'false'})
     else:
-        logging.info(user_name + ' 사용불가')
+        logging.info(username + ' 사용자 계정 존재함')
         return jsonify({'existence': 'true'})
 
 
@@ -90,3 +95,33 @@ TODO
 사용자 정보 검색 폼 구현
 
 """
+
+
+@user.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+        try:
+            username = request.form['isbn']
+            gender = request.form['gender']
+            email = request.form['email']
+            telno = request.form['telno']
+            birthday = request.form['birthday']
+            picturepath = request.form['picturepath']
+
+            filtered_user = User.query.filter_by(name=username).\
+                filter_by(birthday=birthday).first()
+
+            filtered_user.name = username
+            filtered_user.author = gender
+            filtered_user.price = email
+            filtered_user.description = telno
+            filtered_user.link = picturepath
+
+            db_session.flush()
+            db_session.commit()
+
+            return render_template('/success_or_failed.html', status="Success", description="사용자 정보 수정 성공!")
+        except Exception as ex:
+            return render_template('/success_or_failed.html', status="Failed", description="사용자 정보 수정 실패 : " + str(ex))
+    else:
+        return render_template('/user/user_update.html')
