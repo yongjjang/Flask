@@ -2,12 +2,12 @@
 
 
 {% block header %}
-    {% block title %}도서 등록{% endblock %}
+    {% block title %}도서 정보 수정{% endblock %}
 {% endblock %}
 
 {% block content %}
     <div class="container" id="bookAddForm">
-        <form method="post" action="{{ url_for('book.register') }}">
+        <form method="post" action="{{ url_for('book.update') }}">
 
             <div class="form-group col-md-6">
                 <label for="inputName">Book Name</label>
@@ -45,10 +45,10 @@
             <div class="form-group col-md-4 border-primary border">
 
                 <label class="custom-file-label" for="inputFile">Choose File..</label>
-                <input type="file" class="custom-file-input " id="inputFile" name="Picture">
+                <input type="file" class="custom-file-input " id="inputFile" name="picture">
             </div>
 
-            <button type="submit" id="registerBook" class="btn btn-outline-primary" disabled>ADD Book!</button>
+            <button type="submit" id="registerBook" class="btn btn-outline-primary" disabled>UPDATE Book!</button>
         </form>
 
     </div>
@@ -62,7 +62,7 @@
         }
 
     function checkValid() {
-        let checkDuplicateBook = true;
+        let checkValid = true;
         let registerBook = document.getElementById('registerBook');
         let isbn = document.getElementById('inputISBN')
 
@@ -78,14 +78,14 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     const result = JSON.parse(xhr.responseText);
                     console.log(xhr.responseText);
-                    if (result.existence === "false") {
-                        alert('등록 가능한 도서 정보입니다.');
-                        checkDuplicateBook = true;
+                    if (result.existence === "true") {
+                        alert('수정 가능한 도서입니다.');
+                        checkValid = true;
                     } else {
-                        alert('이미 등록된 도서입니다.');
-                        checkDuplicateBook = false;
+                        alert('등록되지 않은 도서입니다.');
+                        checkValid = false;
                     }
-                    registerBook.disabled = !checkDuplicateBook;
+                    registerBook.disabled = !checkValid;
                 }
             }
             xhr.open('post', '{{ url_for('book.check_valid') }}', true);

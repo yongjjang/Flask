@@ -1,10 +1,11 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - TT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<script src="../static/js/func.js"></script>
 <link rel="stylesheet"
       href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
       integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-
+<link rel="stylesheet" href="../static/style.css"/>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -40,6 +41,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{ url_for('book.register') }}">Register</a>
           <a class="dropdown-item" href="{{ url_for('book.search') }}">Search</a>
+            <a class="dropdown-item" href="{{ url_for('book.update') }}">Update</a>
         </div>
       </li>
       <li class="nav-item dropdown active">
@@ -49,6 +51,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{ url_for('user.register') }}">Register</a>
           <a class="dropdown-item" href="{{ url_for('user.search') }}">Search</a>
+{#            <a class="dropdown-item" href="{{ url_for('user.update') }}">Update</a>#}
         </div>
       </li>
       <li class="nav-item dropdown active">
@@ -57,7 +60,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{ url_for('rent.register') }}">Rent</a>
-          <a class="dropdown-item" href="{{ url_for('rent.book_return') }}">Return</a>
+          <a class="dropdown-item" href="{{ url_for('rent.rent_list') }}">Rent List</a>
         </div>
       </li>
     </ul>

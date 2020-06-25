@@ -1,5 +1,5 @@
-from book_rental_service.application.database import db_session, init_db
-from book_rental_service.application.models import User, Book, BookRental
+from .database import db_session, init_db
+from .models import User, Book, BookRental
 from sqlalchemy import func
 import datetime
 import logging

@@ -34,14 +34,26 @@ create table bookrental
 	ID int not null
 		primary key,
 	UserId int not null,
-	ISBN char(40) not null,
+	BookId int not null,
 	RentalDate date null,
 	ReturnDate date null,
 	isRentOut tinyint(1) default 0 null,
 	constraint BookRental_book_ISBN_fk
-		foreign key (ISBN) references book (ISBN),
+		foreign key (BookId) references book (id),
 	constraint bookrental_user_Name_fk
 		foreign key (UserId) references user (id)
+);
+
+create table leaveduser
+(
+	id int null,
+	Name char(20) null,
+	Birthday date null,
+	Gender char(2) null,
+	Email char(60) null,
+	Telno char(14) null,
+	PicturePath char(100) null,
+	LeaveDate date null
 );
 
 
